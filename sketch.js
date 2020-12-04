@@ -81,9 +81,9 @@ function draw(){
 }
 
 function mouseDragged(){
-    //if (gameState!=="launched"){
-        Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
-    //}
+    if (gameState!=="launched"){
+        Matter.Body.setPosition(bird.body, {x:mouseX, y: mouseY });
+    }
 }
 
 
@@ -94,12 +94,15 @@ function mouseReleased(){
 
 function keyPressed(){
     if(keyCode === 32){
+        gameState = "onSling"
+        bird.trajectory= []
+        Matter.Body.setPosition(bird.body, {x: 200 , y:50});
        slingshot.attach(bird.body);
     }
 }
 
 async function getBackgroundImg(){
-    var response = await fetch("http://worldtimeapi.org/api/timezone/Asia/Kolkata");
+    var response = await fetch("https://worldtimeapi.org/api/timezone/Asia/Kolkata");
     var responseJSON = await response.json();
 
     var datetime = responseJSON.datetime;
